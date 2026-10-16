@@ -1,0 +1,23 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model RepairQuery {
+  id                  String   @id @default(uuid())
+  userDescription     String   @map("user_description")
+  imageUrl            String?  @map("image_url")
+  imageMimeType       String?  @map("image_mime_type")
+  identifiedProblem   String   @map("identified_problem")
+  repairSteps         Json     @map("repair_steps") // Array de strings: ["paso 1", "paso 2"]
+  youtubeKeywords     Json     @map("youtube_keywords") // Array de strings: ["keyword 1", "keyword 2"]
+  youtubeVideos       Json?    @map("youtube_videos") // Resultados de YouTube Data API v3
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("repair_queries")
+}

@@ -1,0 +1,27 @@
+{
+  "name": "fixpert-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PWA impulsada por IA para diagnóstico de reparaciones y armado de muebles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jorendon/fixpert-ai.git"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:api": "npm run start:dev --workspace=apps/api",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "test:web": "npm run test --workspace=apps/web",
+    "test:api": "npm run test --workspace=apps/api",
+    "db:up": "docker compose up -d",
+    "db:migrate": "npm run prisma:migrate --workspace=apps/api",
+    "db:generate": "npm run prisma:generate --workspace=apps/api"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
