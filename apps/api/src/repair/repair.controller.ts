@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   Body,
   UploadedFile,
@@ -18,6 +19,11 @@ export class RepairController {
     private readonly youtubeService: YoutubeService,
     private readonly prismaService: PrismaService,
   ) {}
+
+  @Get('health')
+  healthCheck() {
+    return { status: 'ok', service: 'fixpert-api' };
+  }
 
   @Post('diagnose')
   @UseInterceptors(
@@ -49,7 +55,7 @@ export class RepairController {
         identifiedProblem: diagnosis.problema_identificado,
         repairSteps: diagnosis.pasos_para_reparar,
         youtubeKeywords: diagnosis.palabras_clave_busqueda_youtube,
-        youtubeVideos: youtubeVideos,
+        youtubeVideos: youtubeVideos as any,
       },
     });
 

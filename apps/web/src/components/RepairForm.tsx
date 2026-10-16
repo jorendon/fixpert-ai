@@ -135,7 +135,7 @@ export const RepairForm: React.FC = () => {
       )}
 
       {mutation.isSuccess && mutation.data && (
-        <div className="mt-6 space-y-4 border-t pt-5">
+        <div className="mt-6 space-y-5 border-t pt-5">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">Problema Identificado</h3>
             <p className="text-slate-700 mt-1">{mutation.data.problema_identificado}</p>
@@ -149,6 +149,42 @@ export const RepairForm: React.FC = () => {
               ))}
             </ol>
           </div>
+
+          {mutation.data.videos_recomendados &&
+            mutation.data.videos_recomendados.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-3">
+                  Tutoriales Recomendados en YouTube
+                </h3>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {mutation.data.videos_recomendados.map((video) => (
+                    <a
+                      key={video.videoId}
+                      href={video.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition"
+                    >
+                      {video.thumbnailUrl && (
+                        <img
+                          src={video.thumbnailUrl}
+                          alt={video.title}
+                          className="w-full h-36 object-cover"
+                        />
+                      )}
+                      <div className="p-3">
+                        <p className="text-sm font-semibold text-slate-800 line-clamp-2">
+                          {video.title}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">
+                          {video.channelTitle}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
         </div>
       )}
     </div>
